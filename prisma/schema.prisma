@@ -1,0 +1,28 @@
+// Prisma officially supports three client languages:
+// Javascript, Typescript and Go
+// We're using the Javascript Prisma client in our app
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Define database type and url (located in the .env file)
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Define the Student model that also stores
+// a record of subjects and scores
+model Student {
+  id Int @default(autoincrement()) @id
+  firstname String
+  lastname String
+  gender String
+  
+  // A student can take multiple subjects
+  // with each subject having its own score...
+  // So we use a Json field type that will contain
+  // a "map" of subjects and scores
+  subjects Json
+}
+
